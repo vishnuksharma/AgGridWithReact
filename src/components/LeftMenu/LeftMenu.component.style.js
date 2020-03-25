@@ -4,6 +4,12 @@ const styles = (theme => ({
     display: 'flex',
     // width: '72px',
   },
+  leftMenuWrapper: {
+    '& .MuiSvgIcon-root': {
+      width: '2em',
+      height: '2em',
+    }
+  },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {

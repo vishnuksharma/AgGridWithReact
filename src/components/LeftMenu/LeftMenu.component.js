@@ -16,8 +16,12 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import CardTravel from '@material-ui/icons/CardTravel';
+import Assignment from '@material-ui/icons/Assignment';
+import DesktopMac from '@material-ui/icons/DesktopMac';
+import SettingsIcon from '@material-ui/icons/Settings';
+import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
+import FormatAlignLeftIcon from '@material-ui/icons/FormatAlignLeft';
 import styles from './LeftMenu.component.style'
 
 const useStyles = makeStyles(styles);
@@ -76,19 +80,30 @@ const LeftMenuComponent = (props) => {
           </IconButton>
         </div>
         <Divider />
-        <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+        <List className={classes.leftMenuWrapper}>
+          {['RFQ', 'Order'].map((text, index) => (
+            <Link to={text}>
+              <ListItem button key={text}>
+                <ListItemIcon>{index % 2 === 0 ? <Assignment /> : <CardTravel />}</ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItem>
+            </Link>
+          ))}
+          {['Reports', 'Monitor Screen'].map((text, index) => (
             <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+              <ListItemIcon>{index % 2 === 0 ? <FormatAlignLeftIcon /> : <DesktopMac />}</ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}
-        </List>
-        <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
+          {['Setting', 'Access Rights'].map((text, index) => (
             <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+              <ListItemIcon>{index % 2 === 0 ? <SettingsIcon /> : <SupervisorAccountIcon />}</ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+          {['Market Data'].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon>{index % 2 === 0 ? <Assignment /> : <CardTravel />}</ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}
