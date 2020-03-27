@@ -7,10 +7,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
@@ -27,6 +25,7 @@ import styles from './LeftMenu.component.style'
 const useStyles = makeStyles(styles);
 
 const LeftMenuComponent = (props) => {
+  const { pathname } = props;
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -38,6 +37,27 @@ const LeftMenuComponent = (props) => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const getleftMenuWithIcons = () => {
+    return(
+      [
+        { name: 'RFQ', icon: <Assignment />},
+        { name: 'Order', icon: <CardTravel />},
+        { name: 'Reports', icon: <FormatAlignLeftIcon />},
+        { name: 'Monitor Screen', icon: <DesktopMac />},
+        { name: 'Setting', icon: <SettingsIcon />},
+        { name: 'Access Rights', icon: <SupervisorAccountIcon />},
+        { name: 'Market Data', icon: <Assignment />},
+      ]
+    )
+  };
+
+  const getActiveMenu = (url) => {
+    const urlMatch = `/${(url).replace(/\s/g, '-').toLowerCase()}`
+    console.log(pathname ,urlMatch);
+    
+    return pathname === urlMatch ? 'activeMenu' : 'leftMenu';
+  }
   return(
     <div className={classes.root}>
       <CssBaseline />
@@ -48,7 +68,7 @@ const LeftMenuComponent = (props) => {
         })}
       >
         <Toolbar>
-          <IconButton
+          {/* <IconButton
             color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
@@ -58,7 +78,7 @@ const LeftMenuComponent = (props) => {
             })}
           >
             <MenuIcon />
-          </IconButton>
+          </IconButton> */}
         </Toolbar>
       </AppBar>
       <Drawer
@@ -81,31 +101,13 @@ const LeftMenuComponent = (props) => {
         </div>
         <Divider />
         <List className={classes.leftMenuWrapper}>
-          {['RFQ', 'Order'].map((text, index) => (
-            <Link to={text}>
-              <ListItem button key={text}>
-                <ListItemIcon>{index % 2 === 0 ? <Assignment /> : <CardTravel />}</ListItemIcon>
-                <ListItemText primary={text} />
+          {(getleftMenuWithIcons() || []).map((menu, index) => (
+            <Link className={getActiveMenu(menu.name)} key={menu.name} to={(menu.name).replace(/\s/g, '-').toLowerCase()}>
+              <ListItem button >
+                <ListItemIcon>{menu.icon}</ListItemIcon>
+                <ListItemText primary={menu.name} />
               </ListItem>
             </Link>
-          ))}
-          {['Reports', 'Monitor Screen'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <FormatAlignLeftIcon /> : <DesktopMac />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-          {['Setting', 'Access Rights'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <SettingsIcon /> : <SupervisorAccountIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-          {['Market Data'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <Assignment /> : <CardTravel />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
           ))}
         </List>
       </Drawer>

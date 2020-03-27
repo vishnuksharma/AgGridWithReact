@@ -1,11 +1,11 @@
-import { getEmployee } from '../api/searchEmployeeApi';
+import { getRFQData } from '../api/searchRFQApi';
 // import { dispatch } from '../store';
 
 // const delay = (time)=> new Promise(resolve =>setTimeout(()=>resolve(), time))
 
 export async function getSearchDir(payload) {
     try {
-      const res = await getEmployee(payload);
+      const res = await getRFQData(payload);
       if (payload) {
         this.setEmpDirSearchStore(res)
       } else {
@@ -20,6 +20,6 @@ export async function getSearchDir(payload) {
     }
   }
 
-  export function updateEmpSearchState(empDirSearch) {
-    this.setEmpDirSearchStore(empDirSearch);
+  export function updateSelectedTabState(selectedTab) {
+    this.setSelectedTabStore(selectedTab);
   }

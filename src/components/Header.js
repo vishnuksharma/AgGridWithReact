@@ -1,12 +1,15 @@
 import React from 'react';
 import LeftMenuComponent from './LeftMenu/LeftMenu.component';
+import { Grid } from '@material-ui/core';
 const Header = (props) => {
+    const { location } = props;
+console.log(props);
 
     return (
         <React.Fragment>
-            <LeftMenuComponent />
+            <LeftMenuComponent {...location} />
             {props.children}
-        </React.Fragment >
+        </React.Fragment>
     )
 }
 

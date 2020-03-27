@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 
-const getEmpDirSearch = state => state.searchDir.empDirSearch;
-export const getEmpDirSearchState = createSelector(
-  [getEmpDirSearch],
-  empDirSearch => empDirSearch,
+const getSelectedTabStore = state => state.globalStates;
+export const getSelectedTabState = createSelector(
+  [getSelectedTabStore],
+  selectedTab => selectedTab,
 );

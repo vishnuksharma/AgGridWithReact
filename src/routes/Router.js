@@ -1,8 +1,9 @@
 import React from 'react';
-import Searchlayout from '../layout/Search.layout';
+import RFQLayout from '../layout/RFQ.layout';
 import { Router } from "@reach/router"
 import Header from '../components/Header';
-import EmpOverviewComponent from '../components/EmpOverview.component';
+import OrderLayout from '../layout/Order.layout';
+
 
 const Routes = (props) => {
     // console.log(props);
@@ -10,8 +11,8 @@ const Routes = (props) => {
     return (
             <Router>
                 <Header path="/">
-                    <Searchlayout default path="/" />
-                    <EmpOverviewComponent path="/overview/:name" />
+                    <RFQLayout path="/rfq" />
+                    <OrderLayout default path="/order" />
                 </Header>
             </Router>
     )

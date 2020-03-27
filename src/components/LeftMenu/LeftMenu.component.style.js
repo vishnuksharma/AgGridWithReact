@@ -1,14 +1,37 @@
-const drawerWidth = 240;
+const drawerWidth = 100;
 const styles = (theme => ({
   root: {
     display: 'flex',
     // width: '72px',
+    '& .MuiAppBar-colorPrimary': {
+      backgroundColor: '#181d1f',
+    },
   },
   leftMenuWrapper: {
+    '& a.leftMenu': {
+      color: '#565656',
+      textDecoration: 'none',
+    },
+    '& .activeMenu': {
+      color: '#D2090F',
+      textDecoration: 'none',
+      '& .MuiListItem-button': {
+        backgroundColor: '#181d1f',
+      },
+      '& .MuiListItem-button svg': {
+        color: '#D2090F',
+      },
+    },
+    '& .MuiListItem-root': {
+      flexDirection: 'column',
+    },
     '& .MuiSvgIcon-root': {
       width: '2em',
       height: '2em',
-    }
+    },
+    '& .MuiTypography-body1': {
+      fontSize: '.7rem',
+    },
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -33,12 +56,12 @@ const styles = (theme => ({
     display: 'none',
   },
   drawer: {
-    width: drawerWidth,
+    // width: drawerWidth,
     flexShrink: 0,
     whiteSpace: 'nowrap',
   },
   drawerOpen: {
-    width: drawerWidth,
+    // width: drawerWidth,
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -50,9 +73,9 @@ const styles = (theme => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
     overflowX: 'hidden',
-    width: theme.spacing(7) + 1,
+    // width: theme.spacing(7) + 1,
     [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(9) + 1,
+      // width: theme.spacing(9) + 1,
     },
   },
   toolbar: {

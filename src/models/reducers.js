@@ -1,22 +1,17 @@
+import { TAB_ENUM } from "../components/Utilies/utility";
+
 const INITIAL_STATE = {
-  searchDirStore: {},
-  empDirSearch: {},
+  selectedTab: TAB_ENUM.RFQ,
 }
 
-const setSearchDefaultStore = (state, searchDirStore) => ({
+const setSelectedTabStore = (state, selectedTab) => ({
   ...state,
-  searchDirStore,
-});
-
-const setEmpDirSearchStore = (state, empDirSearch) => ({
-  ...state,
-  empDirSearch,
+  selectedTab,
 });
 
 export default {
   initialState: INITIAL_STATE,
   reducers: {
-    setSearchDefaultStore,
-    setEmpDirSearchStore,
+    setSelectedTabStore,
   },
 };
