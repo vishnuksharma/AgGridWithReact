@@ -26,3 +26,8 @@ export const tabList = intl => [
     nonSelectedIcon: '',
   },
 ];
+
+export const getUrlFormat = url => {
+  if (!url) return '';
+  return (url).replace(/\s/g, '-').toLowerCase()
+};

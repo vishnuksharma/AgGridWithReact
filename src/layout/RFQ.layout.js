@@ -11,7 +11,7 @@ import TabsModule from '../commonModule/TabsModule';
 import RFQContainer from "../components/RFQ/RFQ.component";
 import QuotesComponent from "../components/RFQ/Quotes.component";
 import ExceptionComponent from "../components/RFQ/Exception.component";
-import { getSelectedTabState } from "../models/selectors";
+import { getSelectedTabState, getTableListState } from "../models/selectors";
 
 const styles = (theme => ({
   tabContainer: {
@@ -29,24 +29,26 @@ const RFQlayout = props => {
   const { classes, updateSelectedTabState } = props;
   const [selectedTab, setSelectedTab] = useState(0);
 
+  console.log(props, 'props props');
+  
   const onSelectTab = useCallback( clickedTab => {
     console.log(clickedTab, 'clickedTab');
     updateSelectedTabState(clickedTab)
     setSelectedTab(clickedTab);
   }, [selectedTab]);
 
-  const renderTabContainer = useCallback( () => {
+  const renderTabContainer = () => {
     switch (selectedTab) {
       case TAB_ENUM.RFQ:
-        return <RFQContainer />;
+        return <RFQContainer {...props} />;
       case TAB_ENUM.QUOTES:
-        return <QuotesComponent />;
+        return <QuotesComponent {...props} />;
       case TAB_ENUM.EXCEPTION:
-        return <ExceptionComponent />;
+        return <ExceptionComponent {...props} />;
       default:
-        return <RFQContainer />;
+        return <RFQContainer {...props} />;
     }
-  }, [selectedTab])
+  }
   return (
     <React.Fragment>
       <Grid container justify="center">
@@ -65,13 +67,15 @@ const RFQlayout = props => {
 const mapState = state => {
   return {
     selectedTab: getSelectedTabState(state),
+    tableData: getTableListState(state),
   };
 };
 
 const mapDispatch = (dispatch) => {
-  const { globalStates: { updateSelectedTabState } } = dispatch;
+  const { globalStates: { updateSelectedTabState, getTableData } } = dispatch;
   return {
-    updateSelectedTabState
+    updateSelectedTabState,
+    getTableData
   };
 };
 

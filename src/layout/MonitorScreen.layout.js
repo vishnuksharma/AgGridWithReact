@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Orderlayout = props => {
+const MonitorScreenlayout = props => {
   const classes = useStyles();
 
   return (
@@ -28,12 +28,12 @@ const Orderlayout = props => {
           <Box pt={6}>
             <Typography
             variant="h6"
-            component="div">Order Layout</Typography>
+            component="div">Monitor Screen layout</Typography>
           </Box>
         </Grid>
         <Grid item xs={12}>
           <Box pt={6}>
-          Order Layout Content
+          Monitor Screen layout Content
         </Box>
         </Grid>
       </Grid>
@@ -50,11 +50,11 @@ const mapDispatch = (dispatch) => {
   return {};
 };
 
-Orderlayout.propTypes = {}
+MonitorScreenlayout.propTypes = {}
 
-Orderlayout.defaultProps = {}
+MonitorScreenlayout.defaultProps = {}
 
 export default connect(
   mapState,
   mapDispatch
-)(memo(Orderlayout));
+)(memo(MonitorScreenlayout));

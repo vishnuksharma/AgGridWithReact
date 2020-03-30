@@ -1,13 +1,13 @@
 import axios from 'axios';
 
-const apiRoute = 'http://api.additivasia.io/api/v1/assignment/employees';
+const apiRoute = '/api/table/list';
 const ENDPOINTS = {
-    getRFQURL: (searchQuery) => `${apiRoute}/${searchQuery}`,
+    getRFQURL: (searchQuery) => `${apiRoute}`,
 }
 
-export const getRFQData = (payload) => {
+export const getRFQTableData = () => {
     return new Promise((resolve, reject) => {
-        axios.get(ENDPOINTS.getRFQURL(payload))
+        axios.get(ENDPOINTS.getRFQURL())
         .then(res => {
             resolve(res.data);
         })

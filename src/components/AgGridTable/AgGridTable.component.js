@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { AgGridReact } from 'ag-grid-react';
@@ -8,9 +8,10 @@ import styles from './AgGrid.component.style';
 import compose from 'recompose/compose';
 import { withStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
+import { PAGE_SIZE } from '../Utilies/constants';
 
 const AgGridTableComponent = (props) => {
-  const { classes } = props;
+  const { classes, getTableData, tableData } = props;
   const [gridApi, setGridApi] = useState({})
   const [gridColumnApi, setGridColumnApi] = useState({})
   const [state, setState] = useState(
@@ -52,7 +53,7 @@ const AgGridTableComponent = (props) => {
         cellRendererParams: { checkbox: true },
       },
       defaultColDef: {
-        editable: true,
+        editable: false,
         enableRowGroup: true,
         enablePivot: true,
         enableValue: true,
@@ -68,129 +69,21 @@ const AgGridTableComponent = (props) => {
       rowData: [],
     });
 
+  useEffect(() => {
+   getTableData();
+  }, []);
+  useEffect(() => {
+    setState({ ...state, rowData: tableData });
+   }, [tableData]);
+
   const onGridReady = params => {
     setGridApi(params.api);
     setGridColumnApi(params.columnApi);
-
-    const httpRequest = new XMLHttpRequest();
-    const updateData = data => {
-      setState({ ...state, rowData: data });
-    };
-
-    httpRequest.open(
-      'GET',
-      'https://raw.githubusercontent.com/ag-grid/ag-grid/master/grid-packages/ag-grid-docs/src/olympicWinnersSmall.json'
-    );
-    httpRequest.send();
-    httpRequest.onreadystatechange = () => {
-      if (httpRequest.readyState === 4 && httpRequest.status === 200) {
-        updateData(JSON.parse(httpRequest.responseText));
-      }
-    };
   };
-
-  // const scrambleAndRefreshAll = () => {
-  //   scramble();
-  //   var params = { force: isForceRefreshSelected() };
-  //   gridApi.refreshCells(params);
-  // };
-
-  // const scrambleAndRefreshLeftToRight = () => {
-  //   scramble();
-  //   var api = gridApi;
-  //   ['a', 'b', 'c', 'd', 'e', 'f'].forEach(function (col, index) {
-  //     var millis = index * 100;
-  //     var params = {
-  //       force: isForceRefreshSelected(),
-  //       columns: [col],
-  //     };
-  //     callRefreshAfterMillis(params, millis, api);
-  //   });
-  // };
-
-  // const scrambleAndRefreshTopToBottom = () => {
-  //   scramble();
-  //   var frame = 0;
-  //   var i;
-  //   var rowNode;
-  //   var api = gridApi;
-  //   for (i = 0; i < api.getPinnedTopRowCount(); i++) {
-  //     rowNode = api.getPinnedTopRow(i);
-  //     refreshRow(rowNode, api);
-  //   }
-  //   for (i = 0; i < gridApi.getDisplayedRowCount(); i++) {
-  //     rowNode = gridApi.getDisplayedRowAtIndex(i);
-  //     refreshRow(rowNode, api);
-  //   }
-  //   for (i = 0; i < gridApi.getPinnedBottomRowCount(); i++) {
-  //     rowNode = gridApi.getPinnedBottomRow(i);
-  //     refreshRow(rowNode, api);
-  //   }
-  //   function refreshRow(rowNode, api) {
-  //     var millis = frame++ * 100;
-  //     var rowNodes = [rowNode];
-  //     var params = {
-  //       force: isForceRefreshSelected(),
-  //       rowNodes: rowNodes,
-  //     };
-  //     callRefreshAfterMillis(params, millis, api);
-  //   }
-  // };
-
-  // const createData = (count) => {
-  //   var result = [];
-  //   for (var i = 1; i <= count; i++) {
-  //     result.push({
-  //       a: (i * 863) % 100,
-  //       b: (i * 811) % 100,
-  //       c: (i * 743) % 100,
-  //       d: (i * 677) % 100,
-  //       e: (i * 619) % 100,
-  //       f: (i * 571) % 100,
-  //     });
-  //   }
-  //   return result;
-  // }
-
-  // const isForceRefreshSelected = () => {
-  //   return document.querySelector('#forceRefresh').checked;
-  // }
-  // const callRefreshAfterMillis = (params, millis, gridApi) => {
-  //   setTimeout(function () {
-  //     gridApi.refreshCells(params);
-  //   }, millis);
-  // }
-  // const scramble = () => {
-  //   data.forEach(scrambleItem);
-  //   topRowData.forEach(scrambleItem);
-  //   bottomRowData.forEach(scrambleItem);
-  // }
-  // const scrambleItem = (item) => {
-  //   ['a', 'b', 'c', 'd', 'e', 'f'].forEach(function (colId) {
-  //     if (Math.random() > 0.5) {
-  //       return;
-  //     }
-  //     item[colId] = Math.floor(Math.random() * 100);
-  //   });
-  // }
 
   return (
     <Grid container>
       <Grid item xs={12}>
-        {/* <button onClick={() => scrambleAndRefreshAll()}>
-          Scramble &amp; Refresh All
-        </button>
-        <button onClick={() => scrambleAndRefreshLeftToRight()}>
-          Scramble &amp; Refresh Left to Right
-        </button>
-        <button onClick={() => scrambleAndRefreshTopToBottom()}>
-          Scramble &amp; Refresh Top to Bottom
-        </button>
-        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-        <label>
-          <input type="checkbox" id="forceRefresh" />
-          Force Refresh
-        </label> */}
       </Grid>
       <Grid item xs={12}>
         <div id="myGrid"
@@ -208,6 +101,7 @@ const AgGridTableComponent = (props) => {
             pivotPanelShow={state.pivotPanelShow}
             enableRangeSelection={true}
             pagination={true}
+            paginationPageSize={PAGE_SIZE}
             onGridReady={onGridReady}
             rowData={state.rowData}
           />

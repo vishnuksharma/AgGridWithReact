@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Orderlayout = props => {
+const Settingslayout = props => {
   const classes = useStyles();
 
   return (
@@ -28,12 +28,12 @@ const Orderlayout = props => {
           <Box pt={6}>
             <Typography
             variant="h6"
-            component="div">Order Layout</Typography>
+            component="div">Settings layout</Typography>
           </Box>
         </Grid>
         <Grid item xs={12}>
           <Box pt={6}>
-          Order Layout Content
+          Settings layout Content
         </Box>
         </Grid>
       </Grid>
@@ -50,11 +50,11 @@ const mapDispatch = (dispatch) => {
   return {};
 };
 
-Orderlayout.propTypes = {}
+Settingslayout.propTypes = {}
 
-Orderlayout.defaultProps = {}
+Settingslayout.defaultProps = {}
 
 export default connect(
   mapState,
   mapDispatch
-)(memo(Orderlayout));
+)(memo(Settingslayout));

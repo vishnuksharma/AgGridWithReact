@@ -21,6 +21,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import FormatAlignLeftIcon from '@material-ui/icons/FormatAlignLeft';
 import styles from './LeftMenu.component.style'
+import { MENU_NAME, ROUTE_NAME } from '../Utilies/constants';
 
 const useStyles = makeStyles(styles);
 
@@ -41,22 +42,19 @@ const LeftMenuComponent = (props) => {
   const getleftMenuWithIcons = () => {
     return(
       [
-        { name: 'RFQ', icon: <Assignment />},
-        { name: 'Order', icon: <CardTravel />},
-        { name: 'Reports', icon: <FormatAlignLeftIcon />},
-        { name: 'Monitor Screen', icon: <DesktopMac />},
-        { name: 'Setting', icon: <SettingsIcon />},
-        { name: 'Access Rights', icon: <SupervisorAccountIcon />},
-        { name: 'Market Data', icon: <Assignment />},
+        { href:  ROUTE_NAME.RFQ, label: MENU_NAME.rfq, icon: <Assignment />},
+        { href:  ROUTE_NAME.ORDER, label:  MENU_NAME.order, icon: <CardTravel />},
+        { href:  ROUTE_NAME.REPORTS, label: MENU_NAME.reports, icon: <FormatAlignLeftIcon />},
+        { href:  ROUTE_NAME.MONITOER_SCREEN, label: MENU_NAME.monitor_screen, icon: <DesktopMac />},
+        { href:  ROUTE_NAME.SETTINGS, label: MENU_NAME.settings, icon: <SettingsIcon />},
+        { href:  ROUTE_NAME.ACCESS_RIGHTS, label: MENU_NAME.access_rights, icon: <SupervisorAccountIcon />},
+        { href:  ROUTE_NAME.MARKET_DATA, label: MENU_NAME.market_data, icon: <Assignment />},
       ]
     )
   };
 
   const getActiveMenu = (url) => {
-    const urlMatch = `/${(url).replace(/\s/g, '-').toLowerCase()}`
-    console.log(pathname ,urlMatch);
-    
-    return pathname === urlMatch ? 'activeMenu' : 'leftMenu';
+    return pathname === url ? 'activeMenu' : 'leftMenu';
   }
   return(
     <div className={classes.root}>
@@ -102,10 +100,10 @@ const LeftMenuComponent = (props) => {
         <Divider />
         <List className={classes.leftMenuWrapper}>
           {(getleftMenuWithIcons() || []).map((menu, index) => (
-            <Link className={getActiveMenu(menu.name)} key={menu.name} to={(menu.name).replace(/\s/g, '-').toLowerCase()}>
+            <Link className={getActiveMenu(menu.href)} key={menu.label} to={menu.href}>
               <ListItem button >
                 <ListItemIcon>{menu.icon}</ListItemIcon>
-                <ListItemText primary={menu.name} />
+                <ListItemText primary={menu.label} />
               </ListItem>
             </Link>
           ))}
