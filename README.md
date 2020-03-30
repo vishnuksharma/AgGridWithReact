@@ -7,7 +7,8 @@ In the project directory, you can run:
 ### `npm i`
 
 ### `npm run dev`
-
+`npm run dev` will run two command `npm start & npm run server`
+`Mock server` is running on port `4001`
 Runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
