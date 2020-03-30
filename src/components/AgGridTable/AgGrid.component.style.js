@@ -1,6 +1,6 @@
 const styles = ( (theme) => ({
   agGridContainer: {
-    height: '70vh',
+    height: '80vh',
     width: '100%',
   },
   '& .ag-floating-top .ag-row': {

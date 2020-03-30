@@ -10,6 +10,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 import { PAGE_SIZE } from '../Utilies/constants';
 
+
 const AgGridTableComponent = (props) => {
   const { classes, getTableData, tableData } = props;
   const [gridApi, setGridApi] = useState({})
@@ -65,6 +66,9 @@ const AgGridTableComponent = (props) => {
       },
       rowSelection: 'multiple',
       rowGroupPanelShow: 'always',
+      rowModelType: 'serverSide',
+      paginationPageSize: PAGE_SIZE,
+      cacheBlockSize: PAGE_SIZE,
       pivotPanelShow: 'always',
       rowData: [],
     });
@@ -80,7 +84,6 @@ const AgGridTableComponent = (props) => {
     setGridApi(params.api);
     setGridColumnApi(params.columnApi);
   };
-
   return (
     <Grid container>
       <Grid item xs={12}>
@@ -101,7 +104,8 @@ const AgGridTableComponent = (props) => {
             pivotPanelShow={state.pivotPanelShow}
             enableRangeSelection={true}
             pagination={true}
-            paginationPageSize={PAGE_SIZE}
+            paginationPageSize={state.paginationPageSize}
+            cacheBlockSize={state.cacheBlockSize}
             onGridReady={onGridReady}
             rowData={state.rowData}
           />
